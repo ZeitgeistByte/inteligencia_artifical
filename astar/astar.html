@@ -1,0 +1,36 @@
+<html lang="en">
+  <head>
+    <title>Puzzle AStar</title>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+    ></script>
+    <script type="text/javascript" src="astar.js"></script>
+  </head>
+  <body>
+    <div id="mynetwork"></div>
+    <script type="text/javascript">
+      // create a network
+      var container = document.getElementById("mynetwork");
+      var DOTstring = puzzle();
+      var parsedData = vis.parseDOTNetwork(DOTstring);
+      var data = {
+        nodes: parsedData.nodes,
+        edges: parsedData.edges,
+      };
+      var options = {
+        layout: {
+          hierarchical: {
+            levelSeparation: 250,
+            nodeSpacing: 100,
+            parentCentralization: true,
+            direction: "UD", // UD, DU, LR, RL
+            sortMethod: "directed", // hubsize, directed
+            shakeTowards: "roots", // roots, leaves
+          },
+        },
+      };
+      var network = new vis.Network(container, data, options);
+    </script>
+  </body>
+</html>
